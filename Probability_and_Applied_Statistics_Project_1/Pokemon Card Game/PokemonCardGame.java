@@ -8,6 +8,9 @@
 
 // Write a simulation that shows the expected mulligans at 1 - 60 pokemons in your deck.
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Collections;
@@ -67,10 +70,53 @@ public class PokemonCardGame {
         return evaluateOpeningHand();
         
     }
+    
+    public String[][] pokemonMulligansProbability() {
+    	String[][] resultMatrix = new String[59][3];
+    	int testCount = 10000;
+        for(int i = 1; i < 60; i++) {
+        	int pokemonCardCount = 0;
+        	for(int j = 1; j < testCount; j++) {
+        	    PokemonCardGame test = new PokemonCardGame(i, 60 - i);
+        	    if (test.pokemonCardProbability()) {
+        	        pokemonCardCount++;
+        	    }
+        	}
+        	double pokemonCardProbability = ((double) pokemonCardCount / testCount) * 100.0;
+//        	System.out.println(String.format("Number of Pokemon cards: %d \nNumber of non-Pokemon Cards: %d "
+//        			+ "\nProbability of having a Pokemon in hand: %.3f%%\n",
+//                    i, (60 - i), pokemonCardProbability));
+        	resultMatrix[i - 1][0] = String.valueOf(i);
+        	resultMatrix[i - 1][1] = String.valueOf(60 - i);
+        	resultMatrix[i - 1][2] = String.valueOf(pokemonCardProbability);
 
-    public void run() {
-        drawHand();
-        System.out.println("There is a Pokemon: " + evaluateOpeningHand());
+        }
+        return resultMatrix;
+    }
+    
+    public void writeCSVFile(String[][] matrixData) throws IOException {
+    	
+    	File csvFile = new File("mulligansData.csv");
+    	FileWriter fileWriter = new FileWriter(csvFile);
+    	
+    	for (String[] data : matrixData) {
+    	    StringBuilder line = new StringBuilder();
+    	    for (int i = 0; i < data.length; i++) {
+    	        line.append(data[i]);
+    	        if (i != data.length - 1) {
+    	            line.append(',');
+    	        }
+    	    }
+    	    line.append("\n");
+    	    fileWriter.write(line.toString());
+    	}
+    	fileWriter.close();
+    }
+
+    public void run() throws IOException {
+    	
+    	String[][] mulligansData = pokemonMulligansProbability();
+    	writeCSVFile(mulligansData);
         
     }
     
