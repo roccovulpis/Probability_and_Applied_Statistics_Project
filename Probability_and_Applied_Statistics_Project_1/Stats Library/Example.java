@@ -50,21 +50,18 @@ public class Example {
 			if(maxRepeatCount > maxTopRepeatCount) {
 				maxRepeatIndex = i;
 				maxTopRepeatCount = maxRepeatCount;
-				System.out.println(userInput[i]);
 			}
 		}
-
 		return userInput[maxRepeatIndex];
 	}
 	
 	public double findStandardDeviation(int[] userInput) {
 		double listMean = findMean(userInput);
 		double standardDeviation = 0;
-		for(int i = 0; 0 < userInput.length; i++) {
-			standardDeviation += Math.sqrt(i - listMean);
+		for(int i = 0; i < userInput.length; i++) {
+			standardDeviation += Math.pow(userInput[i] - listMean, 2);
 		}
-		standardDeviation = standardDeviation / userInput.length;
+		standardDeviation = Math.sqrt(standardDeviation / userInput.length);
 		return standardDeviation;
 	}
-
 }

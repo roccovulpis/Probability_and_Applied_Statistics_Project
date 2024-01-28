@@ -117,7 +117,6 @@ public class PokemonCardGame {
     	
     	String[][] mulligansData = pokemonMulligansProbability();
     	writeCSVFile(mulligansData);
-        
     }
     
 }
