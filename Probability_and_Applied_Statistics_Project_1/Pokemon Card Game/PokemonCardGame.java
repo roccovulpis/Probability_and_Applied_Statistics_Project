@@ -72,7 +72,9 @@ public class PokemonCardGame {
     }
     
     public String[][] pokemonMulligansProbability() {
-    	String[][] resultMatrix = new String[59][3];
+    	String[][] resultMatrix = new String[60][2];
+    	resultMatrix[0][0] = "Number of Pokemon Cards in a Deck of 60";
+    	resultMatrix[0][1] = "Chance (%) of Drawing a Pokemon Card in Opening Hand";
     	int testCount = 10000;
         for(int i = 1; i < 60; i++) {
         	int pokemonCardCount = 0;
@@ -83,17 +85,14 @@ public class PokemonCardGame {
         	    }
         	}
         	double pokemonCardProbability = ((double) pokemonCardCount / testCount) * 100.0;
-//        	System.out.println(String.format("Number of Pokemon cards: %d \nNumber of non-Pokemon Cards: %d "
-//        			+ "\nProbability of having a Pokemon in hand: %.3f%%\n",
-//                    i, (60 - i), pokemonCardProbability));
-        	resultMatrix[i - 1][0] = String.valueOf(i);
-        	resultMatrix[i - 1][1] = String.valueOf(60 - i);
-        	resultMatrix[i - 1][2] = String.valueOf(pokemonCardProbability);
+        	resultMatrix[i][0] = String.valueOf(i);
+        	resultMatrix[i][1] = String.valueOf(pokemonCardProbability + "%");
 
         }
         return resultMatrix;
     }
     
+    // I got this method from https://springhow.com/java-write-csv/.
     public void writeCSVFile(String[][] matrixData) throws IOException {
     	
     	File csvFile = new File("mulligansData.csv");
@@ -110,6 +109,7 @@ public class PokemonCardGame {
     	    line.append("\n");
     	    fileWriter.write(line.toString());
     	}
+    	fileWriter.flush();
     	fileWriter.close();
     }
 

@@ -56,5 +56,15 @@ public class Example {
 
 		return userInput[maxRepeatIndex];
 	}
+	
+	public double findStandardDeviation(int[] userInput) {
+		double listMean = findMean(userInput);
+		double standardDeviation = 0;
+		for(int i = 0; 0 < userInput.length; i++) {
+			standardDeviation += Math.sqrt(i - listMean);
+		}
+		standardDeviation = standardDeviation / userInput.length;
+		return standardDeviation;
+	}
 
 }
