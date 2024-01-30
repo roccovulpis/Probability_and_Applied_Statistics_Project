@@ -13,7 +13,7 @@ public class TestExample {
 		System.out.println("The median is: " + storeMedianResults);
 		System.out.println("The mode is: " + storeModeResults);
 		System.out.println("The standard deviation: " + storeStandardDeviationResults);
-
+		
 	}
 	
 }
