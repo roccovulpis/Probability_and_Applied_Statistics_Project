@@ -25,17 +25,19 @@ public class PokemonCardGame {
         deck.add(new Pokemon());
 
         for (int i = 1; i < deckSize; i++) {
+        	deck.add(new Pokemon());
             deck.add(new Energy());
+            deck.add(new Trainer());
         }
         Collections.shuffle(deck);
         
     }
     
-    public PokemonCardGame(int pokemonCardCount, int energyCardCount) {
+    public PokemonCardGame(int pokemonCardCount, int nonPokemonCardCount) {
     	for (int i = 0; i < pokemonCardCount; i++) {
             deck.add(new Pokemon());
         }
-        for (int i = 0; i < energyCardCount; i++) {
+        for (int i = 0; i < nonPokemonCardCount; i++) {
             deck.add(new Energy());
         }
         Collections.shuffle(deck);
@@ -113,7 +115,7 @@ public class PokemonCardGame {
     	fileWriter.close();
     }
 
-    public void run() throws IOException {
+    public void runMulligansTest() throws IOException {
     	
     	String[][] mulligansData = pokemonMulligansProbability();
     	writeCSVFile(mulligansData);
